@@ -1,0 +1,16 @@
+#main-sudoku {
+    padding: 10px;
+}
+
+.grid-box {
+    padding: 10px 20px;
+    float: left;
+    font-size: 40px;
+    background-color: #DAF7A6; 
+    border: solid thin black;
+
+}
+
+.clear {
+    clear: both;
+}
