@@ -52,22 +52,70 @@ function updatePosibleValues(number, row, column, grid) {
     for (var i = row + 1; i < 9; i++) {
         removeNumber(number, grid[i][column]);
     }
+
+    //update small square
+
+    var rowStart, rowStop, colStart, colStop;
+    if (row < 3) {
+        rowStart = 0;
+        rowStop = 3;
+    }
+    if (row > 2 && row < 6) {
+        rowStart = 3;
+        rowStop = 6;
+    }
+    if (row > 5) {
+        rowStart = 6;
+        rowStop = 9;
+    }
+
+    if (column < 3) {
+        colStart = 0;
+        colStop = 3;
+    }
+    if (column > 2 && column < 6) {
+        colStart = 3;
+        colStop = 6;
+    }
+    if (column > 5) {
+        colStart = 6;
+        colStop = 9;
+    }
+
+    for (var r = rowStart; r < rowStop; r++) {
+        for (var c = colStart; c < colStop; c++) {
+            if (r != row && c != column) {
+                removeNumber(number, grid[r][c]);
+            }
+        }
+    }
+
 }
 
 function removeNumber(number, array) {
 
+    if (typeof array == 'undefined') {
+        return;
+    }
+
+    if (typeof array == 'number') {
+        return;
+    }
+
+
     found = false;
-    for (var i = 0; i < (array.length - 1); i++) {
+    for (var i = 0; i < array.length; i++) {
         if (array[i] == number) {
             found = true;
         }
-        if (found) {
+        if (found && array[i + 1] != null) {
             array[i] = array[i + 1];
         }
     }
     if (found) {
         array.pop();
     }
+
 }
 
 function isOk(number, grid, row, column) {
@@ -86,6 +134,47 @@ function isOk(number, grid, row, column) {
     }
 
     //check small square
+
+    var rowStart, rowStop, colStart, colStop;
+    if (row < 3) {
+        rowStart = 0;
+        rowStop = 3;
+    }
+    if (row > 2 && row < 6) {
+        rowStart = 3;
+        rowStop = 6;
+    }
+    if (row > 5) {
+        rowStart = 6;
+        rowStop = 9;
+    }
+
+
+    if (column < 3) {
+        colStart = 0;
+        colStop = 3;
+    }
+    if (column > 2 && column < 6) {
+        colStart = 3;
+        colStop = 6;
+    }
+    if (column > 5) {
+        colStart = 6;
+        colStop = 9;
+    }
+
+    for (var r = rowStart; r < rowStop; r++) {
+        for (var c = colStart; c < colStop; c++) {
+            if (r != row && c != column) {
+                if (grid[r][c] == number) {
+                    return false;
+                }
+            }
+        }
+    }
+
+
+
     return true;
 
 }
